@@ -1,0 +1,28 @@
+﻿@using Pizzeria.Models
+@model List<User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Utenti Registrati</h2>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome Utente</th>
+                <th>Ruolo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.Ruolo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

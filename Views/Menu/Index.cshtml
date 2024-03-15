@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Pizzeria.Models.Articolo>
+
+@{
+    ViewBag.Title = "Menu Pizze";
+}
+
+<h2 class="text-center">Menu Pizze</h2>
+
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+
+        @Html.ActionLink("Aggiungi pizza", "Add", null, new { @class = "btn btn-primary" })
+    }
+</div>
+
+<div class="row mt-4">
+    @foreach (var pizza in Model)
+    {
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card" style="height: 27em">
+                <img src="@pizza.Foto" class="card-img-top" alt="@pizza.Nome" style="max-height: 12em; height: auto;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3 fs-4">@pizza.Nome</h5>
+                    <p class="card-text mb-0"><span class="fw-bold">Ingredienti: </span>@pizza.Ingredienti</p>
+                    <p class="card-text mb-0"><span class="fw-bold">Prezzo: </span> @String.Format("{0:0.##}", pizza.Prezzo)€ </p>
+                    <p class="card-text mb-0"><span class="fw-bold">Tempo di consegna: </span> @pizza.TempoConsegna minuti</p>
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = pizza.Id }, new { @class = "btn btn-warning mt-4" })
+                        @Html.ActionLink("Delete", "Delete", new { id = pizza.Id }, new { @class = "btn btn-danger mt-4 ms-2" })
+                    }
+                    else if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        @Html.ActionLink("Aggiungi al Carrello", "Add", "Cart", new { id = pizza.Id }, new { @class = "btn btn-primary mt-4" })
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

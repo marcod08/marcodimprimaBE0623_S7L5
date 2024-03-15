@@ -1,0 +1,21 @@
+﻿@model Pizzeria.Models.Articolo
+
+@{
+    ViewBag.Title = "Conferma Cancellazione Pizza";
+}
+
+<h2 class="text-center mt-5">Conferma Cancellazione Pizza</h2>
+
+<div class="alert alert-danger">
+    Sei veramente sicuro di voler cancellare la pizza "@Model.Nome"?
+</div>
+
+@using (Html.BeginForm("DeleteConfirmed", "Menu", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <input type="submit" value="Conferma" class="btn btn-danger" />
+        @Html.ActionLink("Annulla", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+}

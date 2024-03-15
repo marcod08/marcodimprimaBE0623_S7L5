@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Pizzeria.Models.Dettaglio>
+
+@{
+    ViewBag.Title = "Carrello";
+}
+
+<h2 class="text-center">Carrello</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Prezzo</th>
+                <th>Quantità</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dett in Model)
+            {
+                <tr>
+                    <td>@dett.Articolo.Nome</td>
+                    <td>@String.Format("{0:0.##}", dett.Articolo.Prezzo)€</td>
+                    <td>@dett.Quantità</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center">
+        <p>Il carrello è vuoto.</p>
+    </div>
+}
